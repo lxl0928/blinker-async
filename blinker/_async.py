@@ -15,7 +15,8 @@ def _wrap_plain_value(value):
 
 
 def send_async(self, *sender, **kwargs):
-    return [(receiver, schedule(_wrap_plain_value(value)))
+    loop = kwargs.get('_loop')
+    return [(receiver, schedule(_wrap_plain_value(value), loop=loop))
             for receiver, value
             in self.send(*sender, **kwargs)]
 
